@@ -1,4 +1,11 @@
-function fetchRequest(url, method, body) {
+/**
+ * Wrapper around the Fetch API
+ * 
+ * @param {String} url      The url of the request
+ * @param {String} method   Method of the request
+ * @param {Object} body     
+ */
+function fetchRequest(url, method = 'GET', body = null) {
   
   let options = {
     method: method,
@@ -9,7 +16,7 @@ function fetchRequest(url, method, body) {
     },
   };
 
-  if (body) {
+  if (body && !['GET', 'HEAD'].includes(method.toUpperCase())) {
     var urlsearchparams = new URLSearchParams();
 
     for (const key in body) {
@@ -38,3 +45,10 @@ function fetchRequest(url, method, body) {
 }
 
 export default fetchRequest;
+
+/* 
+  References: 
+    https://gist.github.com/justsml/529d0b1ddc5249095ff4b890aad5e801
+    https://flaviocopes.com/fetch-api/
+    https://github.github.io/fetch/
+*/
