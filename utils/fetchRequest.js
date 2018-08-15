@@ -1,22 +1,27 @@
 /**
  * Wrapper around the Fetch API
- * 
+ *
  * @param {String} url      The url of the request
  * @param {String} method   Method of the request
- * @param {Object} body     
+ * @param {Object} body
  */
-function fetchRequest(url, method = 'GET', body = null) {
-  
-  let options = {
-    method: method,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-      "Accept": "application/json, text/javascript, */*;",
-      "X-Requested-With": "XMLHttpRequest",
-    },
+function fetchRequest(url, method = 'GET', body = null, xhr = true, headers = null) {
+
+  let _defaultHeaders = {
+    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+    "Accept": "application/json, text/javascript, */*;",
   };
 
-  if (body && !['GET', 'HEAD'].includes(method.toUpperCase())) {
+  if (xhr) {
+    _defaultHeaders['X-Requested-With'] = 'XMLHttpRequest';
+  }
+
+  let options = {
+    method: method,
+    headers: headers ? headers : _defaultHeaders,
+  };
+
+  if (body) {
     var urlsearchparams = new URLSearchParams();
 
     for (const key in body) {
@@ -26,7 +31,14 @@ function fetchRequest(url, method = 'GET', body = null) {
       }
     }
 
-    options['body'] = urlsearchparams;
+    if (method.toUpperCase() === 'GET') {
+      let _sep = url.includes('?') ? '&' : '?';
+      url = url + _sep + urlsearchparams.toString();
+    }
+
+    if (!['GET', 'HEAD'].includes(method.toUpperCase())) {
+      options['body'] = urlsearchparams;
+    }
   }
 
   return new Promise((resolve, reject) => {
@@ -46,8 +58,8 @@ function fetchRequest(url, method = 'GET', body = null) {
 
 export default fetchRequest;
 
-/* 
-  References: 
+/*
+  References:
     https://gist.github.com/justsml/529d0b1ddc5249095ff4b890aad5e801
     https://flaviocopes.com/fetch-api/
     https://github.github.io/fetch/
