@@ -33,7 +33,7 @@ function getPageScroll() {
 function scrollToElem(selectors) {
 
   $(selectors[0]).click(function(e) {
-    console.log(e);
+    // console.log(e);
     // TODO: Remove the usage of jQuery
     // TODO: subtract offset
     targetOffset = $(e.currentTarget.hash).offset().top;
