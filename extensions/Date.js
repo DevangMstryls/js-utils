@@ -11,9 +11,7 @@ Date.prototype.getDelimeter = function() {
   }
 
   return 'th';
-}
-
-console.log('vfvf');
+};
 
 Date.prototype.getMonthText = function() {
   const monthNames = [
@@ -22,4 +20,4 @@ Date.prototype.getMonthText = function() {
   ];
 
   return monthNames[this.getMonth()];
-}
+};
