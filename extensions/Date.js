@@ -1,6 +1,6 @@
 Date.prototype.getDelimeter = function() {
   let number = this.getDate();
-  var lastChar = number.toString().split('').pop(); // gives string
+  let lastChar = number.toString().split('').pop(); // gives string
 
   if( lastChar == 1 && number != 11 ) {
     return 'st';
