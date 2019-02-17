@@ -4,9 +4,11 @@ Date.prototype.getDelimeter = function() {
 
   if( lastChar == 1 && number != 11 ) {
     return 'st';
-  } else if( lastChar == 2 ) {
+  } 
+  else if( lastChar == 2 ) {
     return 'nd';
-  } else if (lastChar == 3) {
+  } 
+  else if (lastChar == 3) {
     return 'rd';
   }
 
